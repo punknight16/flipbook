@@ -1,0 +1,26 @@
+{
+  "name": "ai-flipbook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "estimate-house-sales-price.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/punknight16/flipbook.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/punknight16/flipbook/issues"
+  },
+  "homepage": "https://github.com/punknight16/flipbook#readme",
+  "dependencies": {
+    "express": "^4.15.5"
+  }
+}
