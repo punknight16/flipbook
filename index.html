@@ -1,0 +1,68 @@
+<html>
+<head>
+	<script src="./vue.js"></script>
+	<style>
+		body {
+			font-family: 'helvetica';
+		}
+		#main {
+			height: 500px;
+			width: 430px;
+			background-color: #F5F5F5;
+			border: 1px solid #343434;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-evenly;
+			align-items: center;
+		}
+		#title {
+			font-size: 18px;
+			color: #B14949;
+		}
+		#pixel-board {
+			height: 400px;
+			width: 401px;
+			background-color: #FFF;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-evenly;
+		}
+		.pixel {
+			height: 24px;
+			width: 24px;
+		}
+		#command-line-input {
+			width: 400px;
+			color: #949494;
+			border-bottom: 1px solid #343434
+		}
+	</style>
+</head>
+<body style="display: flex; justify-content: center; align-items: center;">
+	<main id='main'>
+		<section id='title'>AI Flipbook</section>
+		<section id='pixel-board'>
+			<div v-bind:data-id='index' v-on:click="handleClick" class='pixel' v-for="(item, index) in items" v-bind:style="{ backgroundColor: colors[item] }">
+				
+			</div>
+		</section>
+		<section id='command-line-input'>Enter a command...</section>
+	</main>
+	<script>
+	var vm = new Vue({
+  	el: '#main',
+  	data: {
+  		items: new Array(256).fill(0),
+  		colors: ['#F7B5B5', '#B14949', '#FF7C7C']
+  	},
+  	methods: {
+  		handleClick: function(event){
+  			var colors_index = this.items[event.target.getAttribute('data-id')]+1;
+  			if(colors_index>=this.colors.length) colors_index = 0;
+  			this.$set(this.items, event.target.getAttribute('data-id'), colors_index);
+  		}
+  	}
+  });
+  </script>
+</body>
+</html>

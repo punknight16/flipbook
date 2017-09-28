@@ -1,0 +1,28 @@
+top down 2d
+with different types of 2d squares
+2d squares give you resources
+resources can be used to build different types of squares
+
+point of the game-
+
+train minion(s) to stay alive
+each level applies different obstacles or more minions
+
+3 different types of actions
+******************************
+
+move away from a dangerous square (causes net energy to be lost)
+move toward and gather a resource square (causes net energy to be gained)
+place the resouce to create an obstacle to the threat
+
+3 types of logic
+*****************
+determine optimal place to set a block, 2 blocks, 3 blocks... 
+determine best action: place a block, move toward benefit, move away from threat.
+internal resource management and planning: test future moves and store patterns that are beneficial
+
+language processing
+********************
+minion can learn to speak by user typing something and then having minion receive click commands - parsing those commands into a set of instructions - the minion can eventually be trained to act based on the speach alone
+
+listening to instructions that cause it to gain energy (maybe even more than it planned) will cause it to react to those instructions in the future

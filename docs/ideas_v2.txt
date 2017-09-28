@@ -1,0 +1,20 @@
+interpret-pic.js
+	example:
+		pic1 = '2x2 dot @ 12, 12'
+		pic2 = '2x2 dot @ 12, 13' => 'moving dot @ 12, 13'
+
+workflow
+	1) single-frame training creates a noun domain
+	2) multi-frame training creates a verb domain
+	3a) running pic against single-frame search tests against all noun domains, outputting a response of highest percent guess
+	3b) single-frame search can be limited by context (3d image, 2d image)
+	4a) running pic against multi-frame search tests against all verb domains, outputting a response of highest percent guess
+	4b) multi-frame search can be limited by context (3d image gets closer, 2d image gets bigger)
+	5) user can confirm or deny correctness of guess or maybe create a new domain
+
+search-algorithm
+	1) contrasting - turn pic into 3 grayscale images (r, g, b);
+	2) segmentation - segment 16 by 16 image into groups of connected blocks
+	3) reduction - consider fourrier transform or other forms of reducing the number of inputs into a piecewise function (PCA, LDA)
+	4) individual analysis of each segment
+	5) contextual analysis of each segment based on other segments
