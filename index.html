@@ -15,11 +15,11 @@
 			justify-content: space-evenly;
 			align-items: center;
 		}
-		#title {
+		#title-section {
 			font-size: 18px;
 			color: #B14949;
 		}
-		#pixel-board {
+		#pixel-board-section {
 			height: 397px;
 			width: 396px;
 			background-color: #FFF;
@@ -31,36 +31,100 @@
 			height: 24px;
 			width: 24px;
 		}
-		#command-line-input {
+		#command-section {
 			width: 400px;
-			color: #949494;
-			border-bottom: 1px solid #343434
+			height: 30px;
+			display: flex;
+			justify-content: center;
 		}
 	</style>
 </head>
 <body style="display: flex; justify-content: center; align-items: center;">
 	<main id='main'>
-		<section id='title'>AI Flipbook</section>
-		<section id='pixel-board'>
-			<div v-bind:data-id='index' v-on:click="handleClick" class='pixel' v-for="(item, index) in items" v-bind:style="{ backgroundColor: colors[item] }">
-				
+		<section id='title-section'>Flipbook AI</section>
+		<section id='pixel-board-section'>
+			<div v-bind:data-id='index' v-on:click="handleClick" class='	pixel' v-for="(item, index) in items" v-bind:style="{ 	
+				backgroundColor: colors[item] }">
 			</div>
 		</section>
-		<section id='command-line-input'>Enter a command...</section>
+		<section id='command-section'>
+			<div id='command-panel'>
+				<button v-on:click="backFrame">Back Frame</button>
+				<button v-on:click="playToggle">{{this.frame}}</button>
+				<button v-on:click="nextFrame">Next Frame</button>
+			</div>
+		</section>
 	</main>
 	<script>
 	var vm = new Vue({
   	el: '#main',
   	data: {
   		items: new Array(256).fill(0),
-  		colors: ['#F7B5B5', '#B14949', '#FF7C7C']
+  		colors: ['#F7B5B5', '#B14949', '#FF7C7C'],
+  		playing: false,
+  		timer: {},
+  		frame: 0
   	},
   	methods: {
   		handleClick: function(event){
   			var colors_index = this.items[event.target.getAttribute('data-id')]+1;
   			if(colors_index>=this.colors.length) colors_index = 0;
   			this.$set(this.items, event.target.getAttribute('data-id'), colors_index);
-  		}
+  		},
+  		nextFrame: function(){
+  			var frame_id = "frame_"+this.frame;
+  			localStorage.setItem(frame_id, JSON.stringify(this.items));
+  			this.frame++;
+  			var next_frame_id = "frame_"+this.frame;
+  			if(localStorage.getItem(next_frame_id)==null){
+  				
+  				this.items = new Array(256).fill(0);
+  			} else {
+  				var saved_items = JSON.parse(localStorage.getItem(next_frame_id));
+  				this.items = saved_items;
+  			}
+  			console.log(this.frame);
+  		},
+  		playToggle: function(){
+  			
+  			this.playing=!this.playing;
+  			if(this.playing){
+  				alert('playing');
+  				timer = setInterval(function(){
+  					var last_id = localStorage.length -1;
+  					if(this.frame>=last_id){
+  						this.frame=0;	
+  					} else {
+  						this.frame++
+  					}
+  					var next_frame_id = "frame_"+this.frame;
+  					var saved_items = JSON.parse(localStorage.getItem(next_frame_id));
+  					this.items = saved_items;
+  				}.bind(this), 1000);	
+  			} else {
+  				clearInterval(timer);
+  			}
+  			
+  			//localStorage.clear();
+  		},
+  		backFrame: function(){
+  			var frame_id = "frame_"+this.frame;
+  			localStorage.setItem(frame_id, JSON.stringify(this.items));
+  			if(this.frame<=0){
+					var last_id = localStorage.length-1;
+  				this.frame = last_id;
+  			} else {
+  				this.frame--;	
+  			}
+  			var next_frame_id = "frame_"+this.frame;
+  			if(localStorage.getItem(next_frame_id)==null){
+  				console.log('error');
+  			} else {
+  				var saved_items = JSON.parse(localStorage.getItem(next_frame_id));
+  				this.items = saved_items;
+  			}
+  			console.log(this.frame);
+  		},
   	}
   });
   </script>

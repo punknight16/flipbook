@@ -1,0 +1,22 @@
+app/
+	server.js
+	index.js
+interactors/
+	print-next-screen.js //prints next screen based on training data
+local storage/
+	training-data.json
+handlers/
+	click-forward
+		//locally store screen
+		//index++
+	click-backward
+		//locally store screen
+		//index--
+	click-play
+		//call interactor to generate (n) screens
+		//playing = true;
+		//while(playing){index++ } to loop through them
+	click-pause
+		//playing=false;
+build/
+	vue.js
